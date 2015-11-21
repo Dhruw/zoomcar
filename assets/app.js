@@ -7,6 +7,14 @@
         function ($scope, $http) {
             $http.get('https://zoomcar-ui.0x10.info/api/courier?type=json&query=list_parcel').success(function (response) {
                 $scope.parcels = response.parcels;
+                
+                // .replace(/[^\d.-]/g, '')
+                
+                for(var i=0; i< $scope.parcels.length; i++){
+                    $scope.parcels[i].price = parseFloat($scope.parcels[i].price.replace(/[^\d.-]/g, '')) ;
+                     
+                }
+                
                 $scope.currentItem = response.parcels[0];
                 $scope.list_order='name';
                 $scope.current_order='Ascending';
