@@ -34,7 +34,7 @@
 
 
 	<div class="jumbotron text-center">
-		<img src="http://assets.zoomcar.com/assets/logo_white-98017ee38791e1111133f2e23237de28.png" alt="ZoomCar">
+		<img src="./assets/logo.png" alt="ZoomCar - Trackr">
 	</div>
 
 	<div class="container">
@@ -44,7 +44,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div ng-controller="apiController as apiCtrl" id="api_count" class="text-center" style="padding: 5px;">
-							<span>API Hits:{{api_hits}} | Total Parcels: {{ parcels.length }}</span>
+							<span> API Hits:{{api_hits}} | Total Parcels: {{ parcels.length }}</span>
 						</div>
 					</div>
 				</div>
@@ -64,18 +64,15 @@
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" role="menu" ng-model="list_order">
-								<li><a href="#" ng-click="list_order='name'">Name  <span class="glyphicon glyphicon-text-color pull-right"></span></a></li>
-								<li><a href="#" ng-click="list_order='price'">Price  <span class="glyphicon glyphicon-stats pull-right"></span></a></li>
-								<li><a href="#" ng-click="list_order='weight'">Weight  <span class="glyphicon glyphicon-oil pull-right"></span></a></li>
+								<li><a href="#" ng-click="list_order='name'; current_order='Ascending'">Name  <span class="glyphicon glyphicon-text-color pull-right"></span></a></li>
+								<li><a href="#" ng-click="list_order='price'; current_order='Ascending'">Price  <span class="glyphicon glyphicon-stats pull-right"></span></a></li>
+								<li><a href="#" ng-click="list_order='weight'; current_order='Ascending'">Weight  <span class="glyphicon glyphicon-oil pull-right"></span></a></li>
 							</ul>
 						</div>
 						<span class="label label-default">
-							 <span class="glyphicon glyphicon-text-color" ng-if="list_order=='name' "></span>
-							 <span class="glyphicon glyphicon-text-color" ng-if="list_order=='-name' "></span>
-								<span class="glyphicon glyphicon-stats" ng-if=" list_order=='price' "></span>
-								<span class="glyphicon glyphicon-stats" ng-if=" list_order=='-price' "></span>
-								<span class="glyphicon glyphicon-oil" ng-if=" list_order=='weight' "></span>
-								<span class="glyphicon glyphicon-oil" ng-if=" list_order=='-weight' "></span>
+							 <span class="glyphicon glyphicon-text-color" ng-if="(list_order=='name') || (list_order=='-name') "></span>
+								<span class="glyphicon glyphicon-stats" ng-if=" (list_order=='price') || (list_order=='-price') "></span>
+								<span class="glyphicon glyphicon-oil" ng-if=" (list_order=='weight') || (list_order=='-weight')  "></span>
 						</span>
 						<div class="btn btn-primary btn-sec" style="margin-left: 3px;" ng-click="reorder_list(list_order)"> {{current_order}} 
 							 <span class="glyphicon glyphicon-arrow-down" ng-if="current_order=='Ascending' "></span> 
@@ -87,7 +84,14 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="btn-group-vertical btn-full-width">
-							<button type="button" class="btn btn-primary" ng-repeat="item in parcels | orderBy: list_order | filter: search_filter" ng-click="setItem(item); setMap(item.live_location)">{{item.name }}</button>
+							<button type="button" class="btn btn-primary" ng-repeat="item in parcels | orderBy: list_order | filter: search_filter" ng-click="setItem(item); setMap(item.live_location)">{{item.name }} 			
+								
+								<span class="label label-success pull-right" style="background-color: #3A9E1C; font-weight: normal;" ng-if="(list_order=='price') || (list_order=='-price') || (list_order=='weight') || (list_order=='-weight')" >
+									<span ng-if="(list_order=='weight') || (list_order=='-weight')">{{ item.weight}}</span>
+									<span ng-if="(list_order=='price') || (list_order=='-price')"> {{item.price | currency:"&#8377;"}} </span>
+								</span>
+
+							</button>
 						</div>
 					</div>
 				</div>
@@ -170,19 +174,19 @@
 								</div>
 								<div class="row">
 
-									<div class="col-md-3">
+									<div class="col-md-3 text-center">
 										<div class="fb-share-button" data-href="https://www.facebook.com/zoomcar.in/" data-layout="button"></div>
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-3 text-center">
 										<div class="g-plusone" data-annotation="inline" data-width="120" data-href="https://plus.google.com/explore/ZoomCar"></div>
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-3 text-center">
 										<script src="//platform.linkedin.com/in.js" type="text/javascript">
 											lang: en_US
 										</script>
 										<script type="IN/Share" data-url="https://www.linkedin.com/company/zoomcar-india-pvt-ltd-" data-counter="right"></script>
 									</div>
-									<div class="col-md-3"><a href="https://twitter.com/share" class="twitter-share-button" {count} data-url="http://www.zoomcar.com/">Tweet</a>
+									<div class="col-md-3 text-center"><a href="https://twitter.com/share" class="twitter-share-button" {count} data-url="http://www.zoomcar.com/">Tweet</a>
 										<script>
 											!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 										</script>
