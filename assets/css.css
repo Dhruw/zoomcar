@@ -1,0 +1,67 @@
+body {
+	background-color: #eee;
+	/*font-family: 'Open Sans','sans-serif';*/
+}
+
+.jumbotron{
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+	background-color: #2C333D;
+	margin-bottom: 10px !important;
+	box-shadow: 3px 3px 3px rgba(100, 100, 100, .8);
+}
+
+input[type="radio"].toggle {
+  display: none;
+  left: 0px;
+}
+
+.btn-primary {
+	background-color: #6ABD19;
+	border-color: #7FC73A;
+}
+
+.btn-full-width {
+	width: 100%;
+}
+
+.btn-primary:hover {
+	background-color: #3A9E1C;
+	border-color: #3A9E1C;
+}
+
+.btn-group-vertical {
+	width: 100%;
+}
+
+.btn-sec {
+	background-color: #2C333D;
+	border-color: #F8F8F8;
+}
+
+input {
+	width: 100%;
+	border: 1px solid #2C333D;
+	border-radius: 2px;
+	padding: 3px;
+	margin-top: 3px;
+}
+
+#api_count{
+	background-color: #2C333D;
+	
+	border-radius: 3px;
+	color: #F8F8F8;
+}
+/*#2C333D*/
+
+
+.panel-primary>.panel-heading {
+    color: #fff;
+    background-color: #2C333D;
+    border-color: #2C333D;
+}
+
+.panel-primary {
+    border-color: #2C333D;
+}

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title> </title>
+	<script src="./assets/jquery.min.js"></script>
+	<script type="text/javascript" src="./assets/angular.min.js"></script>
+	<script src="./assets/app.js"></script>
+	<script src="./assets/js.js"></script>
+	<!--BOOTSTRAP-->
+	<script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="http://maps.google.com/maps/api/js?libraries=places&region=uk&language=en&sensor=true"></script>
+
+	<link rel="stylesheet" type="text/css" href="./assets/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./assets/css.css">
+</head>
+
+<body ng-app="zoomApp" ng-controller="zoomController as zCtrl">
+
+	<div class="jumbotron text-center">
+		<img src="http://assets.zoomcar.com/assets/logo_white-98017ee38791e1111133f2e23237de28.png" alt="ZoomCar">
+	</div>
+
+	<div class="container">
+
+		<div class="row" ng-controller="itemController as iCtrl">
+			<div class="col-md-3">
+				<div class="row">
+					<div class="col-md-12">
+						<div ng-controller="apiController as apiCtrl" id="api_count" class="text-center" style="padding: 5px;">
+							<span>API Hits:{{api_hits}} | Total Parcels: {{ parcels.length }}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<input type="text" ng-model="search_filter"> 
+					</div>
+				</div>
+
+				<div class="row" style="margin-top: 3px; margin-bottom: 3px;;">
+					<div class="col-md-12">
+
+						<div class="btn-group ">
+							<button type="button" class="btn btn-primary btn-sec">Sort By</button>
+							<button type="button" class="btn btn-primary dropdown-toggle btn-sec" data-toggle="dropdown">
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" ng-model="list_order">
+								<li><a href="#" ng-click="list_order='name'">Name</a></li>
+								<li><a href="#" ng-click="list_order='price'">Price</a></li>
+								<li><a href="#" ng-click="list_order='weight'">Weight</a></li>
+							</ul>
+						</div>
+						<!--
+						ng-model="list_order"
+						<select  id="">
+							<option value="price" ng-selected="true">Price</option>
+							<option value="weight">Weight</option>
+						</select>-->
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="btn-group-vertical btn-full-width">
+							<button type="button" class="btn btn-primary" ng-repeat="item in parcels | orderBy: list_order | filter: search_filter" ng-click="setItem(item); setMap(item.live_location)">{{item.name }}</button>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div>
+				</div>
+
+			</div>
+			<div class="col-md-9">
+
+
+
+				<div class="panel panel-primary">
+					<div class="panel-heading text-center">
+						<h4>{{currentItem.name | uppercase}} &nbsp;</h4> </div>
+					<div class="panel-body">
+
+
+						<div class="row">
+							<div class="col-md-3">
+								<img ng-src="{{currentItem.image}}" alt="{{currentItem.name}}" class="img-responsive">
+							</div>
+							<div class="col-md-9">
+								<div class="row">
+									<div class="col-md-6">
+										<table class="table table-hover">
+											<tr>
+												<td>
+													<span class="glyphicon glyphicon-pencil"></span>
+												</td>
+												<td>{{currentItem.type}}</td>
+											</tr>
+											<tr>
+												<td><span class="glyphicon glyphicon-oil"></span></td>
+												<td>{{currentItem.weight}} </td>
+											</tr>
+											<tr>
+												<td><span class="glyphicon glyphicon-phone"></span></td>
+												<td>{{currentItem.phone}}</td>
+											</tr>
+											<tr>
+												<td> <i class="glyphicon glyphicon-calendar"></i> </td>
+												<td>{{currentItem.date | date:'medium' }}</td>
+											</tr>
+										</table>
+
+									</div>
+									<div class="col-md-6">
+										<table class="table table-hover">
+											<tr>
+												<td> <span class="glyphicon glyphicon-stats"></span></td>
+												<td>{{currentItem.price | currency:"&#8377;"}}</td>
+											</tr>
+											<tr>
+												<td><span class="glyphicon glyphicon-tasks"></span>
+												</td>
+												<td> {{currentItem.quantity}} </td>
+											</tr>
+											<tr>
+												<td><span class="glyphicon glyphicon-text-color"></span></td>
+												<td>
+													<div style="background-color: {{currentItem.color}}; border-radius: 3px; box-shadow: 3px 3px 3px #ccc; width: 50px;">&nbsp;</div>
+												</td>
+											</tr>
+											<tr>
+												<td><i class="glyphicon glyphicon-link"></i></td>
+												<td> <a ng-href="{{currentItem.link}}" target="_blank"> Link</a> </td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										{{currentItem.live_location}}
+									</div>
+								</div>
+
+
+							</div>
+							<div class="row">
+								<div class="col-md-12 text-center">
+									<div id="map_canvas" style="height: 350px; width: 820px; "></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+			</div>
+		</div>
+
+
+	</div>
+</body>
+
+</html>
